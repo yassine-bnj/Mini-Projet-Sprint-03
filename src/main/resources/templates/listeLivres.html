@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="template"
+ xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5>
+<link rel="stylesheet" type="text/css"
+href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+<script 
+ src="webjars/jquery/3.6.0/jquery.min.js"></script>
+<head>
+<meta charset="utf-8">
+<title>Liste des livres</title>
+</head>
+<body>
+<!-- -->
+<div
+th:replace="navbar"></div>
+<div class="container mt-5">
+<div class="card">
+ <div class="card-header">
+ Liste des livres
+ </div>
+ <div class="card-body">
+
+ <table class="table table-striped">
+ <tr>
+ <th>ID</th><th>titre </th><th>auteur </th><th>nbPages </th>
+ <th>type Livre</th><th>date Parution</th>
+ </tr>
+ <tr th:each="l:${livres}">
+ <td th:text="${l.idLivre}"></td>
+ <td th:text="${l.titre}"></td>
+ <td th:text="${l.auteur}"></td>
+ <td th:text="${l.nbPages}"></td>
+ <td th:text="${l.type.nomType}"></td>
+  <td th:text="${#dates.format(l.dateParution, 'dd/MM/yyyy')}"></td>
+ <td sec:authorize="hasRole('ADMIN')"><a  onclick="return confirm('Etes-vous sûr ?')" class="btn btn-danger" th:href="@{supprimerLivre(id=${l.idLivre},
+page=${currentPage},size=${size})}" >Supprimer</a></td>
+<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-warning" th:href="@{modifierLivre(id=${l.idLivre},
+page=${currentPage},size=${size})}" >Modifier</a></td>
+ </tr>
+ </table>
+ <ul class="nav nav-pills">
+ <li th:each="page,status:${pages}">
+ <a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+ th:href="@{ ListeLivres(page=${status.index}, size=${size} ) }"
+ th:text="${status.index+1 }"></a>
+ </li>
+ </ul>
+ 
+ 
+ </div>
+</div>
+</div>
+</div>
+</body>
+</html>

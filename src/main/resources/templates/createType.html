@@ -1,0 +1,47 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css"
+href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+
+<script type="text/javascript"
+src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+<script 
+ src="webjars/jquery/3.6.0/jquery.min.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+<title>Ajouter Livre</title>
+</head>
+<body>
+<!-- -->
+<div
+th:replace="navbar"></div>
+<div class="container mt-5" >
+<div class="card-body">
+
+
+<form action="saveType" method="post">
+ <div class="form-group">
+ <label class="control-label">nom Type  :</label>
+ <input type="text" name="nomType" class="form-control" required/>
+ </div>
+ <div class="form-group">
+ <label class="control-label">description :</label>
+ <textarea name="descriptionType" class="form-control" required></textarea>
+ 
+ </div>
+ 
+
+
+ <div>
+ <button type="submit" class="btn btn-primary">Ajouter</button>
+</div>
+</form>
+</div>
+
+<br/>
+<br/>
+<a href="Listetypes">Liste Types</a>
+</div>
+</body>
+</html>

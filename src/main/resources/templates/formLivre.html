@@ -1,0 +1,93 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css"
+href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+
+<script type="text/javascript"
+src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+<script 
+ src="webjars/jquery/3.6.0/jquery.min.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+<title th:if="${mode=='new'}">Ajouter Livre</title>
+<title th:if="${mode=='edit'}">Modifier Livre</title>
+</head>
+<body>
+<!-- -->
+<div
+th:replace="navbar"></div>
+<div class="container mt-5" >
+<div class="card">
+ <div class="card-header" th:if="${mode=='new'}"> Ajout des livres </div>
+ <div class="card-header" th:if="${mode=='edit'}">Modification des livres
+</div>
+<div class="card-body">
+
+
+<form action="saveLivre" method="post">
+
+ <input type="text" name="idLivre" class="form-control" th:value="${livre.idLivre}" hidden/>
+ 
+ <input  name="page" th:value="${currentPage}" hidden>
+  <input type="hidden" name="size"  th:value="${size}" >
+ <div class="form-group">
+ <label class="control-label">titre  :</label>
+ <input type="text" name="titre" class="form-control" th:value="${livre.titre}" />
+  <span th:errors=${livre.titre} class="text-danger"> </span>
+ </div>
+ <div class="form-group">
+    <label class="control-label">auteur :</label>
+	<input type="text" name="auteur" class="form-control" th:value="${livre.auteur}" />
+	<span th:errors=${livre.auteur} class="text-danger"> </span>
+
+ </div>
+  <div class="form-group">
+ <label class="control-label">nbPages :</label>
+ <input type="number" name="nbPages" class="form-control" th:value="${livre.nbPages}" />
+ <span th:errors=${livre.nbPages} class="text-danger"> </span>
+ </div>
+  <div class="form-group">
+ <label class="control-label">type Livre :</label>
+ <!-- <select class="custom-select" name="type" th:if="${mode=='new'}">
+ 
+  <option selected>selectionner un type</option>
+<option th:each="t : ${types}"
+          th:value="${t.idType}"
+          th:text="${t.nomType}"
+          >
+  </option>
+  th:if="${mode=='edit'}
+</select>-->
+ <select class="custom-select" name="type" >
+ 
+  <option selected>selectionner un type</option>
+<option th:each="t : ${types}"
+          th:value="${t.idType}"
+          th:text="${t.nomType}"
+          th:selected="${t.idType == livre.type.idType}">
+  </option>
+</select>
+ </div>
+ <div class="form-group">
+ <label class="control-label">date Parution :</label>
+
+  <input type="date" name="dateParution" class="form-control" th:value="${livre.dateParution}" />
+
+ <span th:errors=${livre.dateParution} class="text-danger"> </span>
+ </div>
+
+ <div>
+ <button type="submit" class="btn btn-primary" th:if="${mode=='new'}">Ajouter</button>
+ <button type="submit" class="btn btn-primary" th:if="${mode=='edit'}">Modifier</button>
+
+</div>
+</form>
+</div>
+
+<br/>
+<br/>
+<a href="ListeLivres">Liste Livres</a>
+</div>
+</body>
+</html>
